@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        h1, h2{
+            text-align: center;
+        }
+
+        footer{
+            background-color: gray;
+            width: 100%;
+            position: absolute;
+
+        }
+
+    </style>
+    <body id="body">
+        <header>
+            <h1>Lets build a calculator !</h1>
+        </header>
+
+        <main>
+            <h2 id="h2">Type in a number !</h2>
+            <input type="text" id="inp">
+            <button id="submit" onclick="submit()">submit</button>
+        </main>
+
+        <footer>
+            <h1 id="first"></h1>
+            <p>By Visurex</p>
+        </footer>
+
+        <script>
+            var submitCount = 0;
+            var numb1;
+            var numb2;
+            var operator1;
+
+            /* CALCULATOR*/
+            function notANum(){
+                document.getElementById("h2").innerHTML = "This is not a number, try again.";
+            };
+
+            function numAccepted(submitCount,numb1,operator1,numb2){
+                if(submitCount == 0){
+                    document.getElementById("h2").innerHTML = `Number accepted: ${numb1}` ;
+                
+                    setTimeout (() =>{
+                            document.getElementById("h2").innerHTML = "Type in a operator: *,/,+,-";
+                            },1000)
+                } else if(submitCount == 2){
+                    document.getElementById("h2").innerHTML = "Second Number accepted";
+
+                    setTimeout(() =>{
+                            document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = `;
+
+                        },1000)
+
+                        answer = operationInit(numb1,operator1, numb2);
+                        
+                    setTimeout(() =>{
+                            document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = ${answer}`;
+                        },1000)
+                        console.log(submitCount + " before count");
+
+                        submitCount++;
+                        console.log(submitCount + " last count");
+
+                };
+            };
+
+            function setIntervalF(numb, input){
+                setTimeout(() =>{
+                            document.getElementById("h2").innerHTML = "put a Second number in";
+
+                        },1000)
+                setTimeout(() =>{
+                            document.getElementById("h2").innerHTML = `${numb} ${input} : put a second number in`;
+
+                        },1000)
+            };
+
+            function operator(numb1, input){
+                document.getElementById("h2").innerHTML = "This is an operator.";  
+                
+                switch (input){
+                    case "/": 
+                        document.getElementById("h2").innerHTML = "operator: " + input; 
+                        setIntervalF(numb1, input);
+                        break;
+                    case "*":
+                        document.getElementById("h2").innerHTML = "operator: " + input; 
+                        setIntervalF(numb1, input);
+                        break;
+                    case "-":
+                        document.getElementById("h2").innerHTML = "operator: " + input; 
+                        setIntervalF(numb1, input);
+                        break;
+                    case "+": 
+                        document.getElementById("h2").innerHTML = "operator: " + input; 
+                        setIntervalF(numb1, input);
+                        break;
+                    default:
+                        console.error("problem in 'operator' function");
+                };
+            };
+
+            function notAOperator(){
+                document.getElementById("h2").innerHTML = "This is not an Operator, try again.";  
+            };
+
+            function operationInit(numb1,operator1, numb2){
+                console.log(operator1 + " try")
+                switch (operator1){
+                    case "*":
+                        return numb1 * numb2;
+                        break;
+                    case "/":
+                        return numb1 / numb2;
+                        break;
+                    case "-":
+                        return numb1 - numb2;
+                        break;
+                    case "+":
+                        return Number(numb1) + Number(numb2);
+                        break;
+                    default:
+                        console.error("problem in 'operationInit' function ");
+                };
+            };
+
+            function submit(){
+
+                while(true){
+                    input = document.getElementById("inp").value;
+
+                    
+                    if(isNaN(input) && (submitCount == 0 || submitCount == 2)){
+                        
+                            notANum();
+
+                        break;
+                    }else if (!isNaN(input) && (submitCount == 0 || submitCount == 2) ){
+                        if(submitCount == 0){
+                            numb1 = input;
+                            numAccepted(submitCount,numb1,operator1,numb2);
+                            submitCount++;
+                            
+                        } else if (submitCount == 2){
+                            numb2 = input;
+                            numAccepted(submitCount,numb1,operator1,numb2);
+                        };
+                        break;
+                    };
+                    if ((input == "*" || input == "/" || input == "-" || input == "+") && submitCount == 1) {
+
+                        submitCount++;
+                        operator1 = input;
+                        operator(numb1, operator1);
+                        break;
+
+                    } else if ((input !== "*" || input !== "/" || input !== "-" || input !== "+" )&& submitCount == 1){
+                        notAOperator();
+                        break;
+                    };
+
+                    if(submitCount == 3){
+                        document.getElementById("h2").innerHTML = "Reload the page to try again.";
+                    };
+                };
+            };
+            
+            
+            /* timer in footer*/
+            setInterval(() => {
+                var date = new Date();
+                date = date.toLocaleTimeString();
+                document.getElementById("first").innerHTML = date;
+                document.getElementById("first").style.color = "blue";
+            }, 1000);
+        </script>
+    </body>
+</html>
