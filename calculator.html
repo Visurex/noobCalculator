@@ -10,14 +10,11 @@
         h1, h2{
             text-align: center;
         }
-
         footer{
             background-color: gray;
             width: 100%;
             position: absolute;
-
         }
-
     </style>
     <body id="body">
         <header>
@@ -57,32 +54,26 @@
                     document.getElementById("h2").innerHTML = "Second Number accepted";
 
                     setTimeout(() =>{
-                            document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = `;
+                        document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = `;
+                        },1000);
 
-                        },1000)
-
-                        answer = operationInit(numb1,operator1, numb2);
+                    answer = operationInit(numb1,operator1, numb2);
                         
                     setTimeout(() =>{
-                            document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = ${answer}`;
-                        },1000)
-                        console.log(submitCount + " before count");
-
+                        document.getElementById("h2").innerHTML = `${numb1} ${operator1} ${numb2} = ${answer}`;
+                        },1000);
                         submitCount++;
-                        console.log(submitCount + " last count");
-
                 };
             };
 
             function setIntervalF(numb, input){
                 setTimeout(() =>{
-                            document.getElementById("h2").innerHTML = "put a Second number in";
+                        document.getElementById("h2").innerHTML = "put a Second number in";
+                        },1000);
 
-                        },1000)
                 setTimeout(() =>{
-                            document.getElementById("h2").innerHTML = `${numb} ${input} : put a second number in`;
-
-                        },1000)
+                        document.getElementById("h2").innerHTML = `${numb} ${input} : put a second number in`;
+                        },1000);
             };
 
             function operator(numb1, input){
@@ -135,35 +126,29 @@
             };
 
             function submit(){
-
                 while(true){
                     input = document.getElementById("inp").value;
 
-                    
                     if(isNaN(input) && (submitCount == 0 || submitCount == 2)){
-                        
-                            notANum();
-
+                        notANum();
                         break;
                     }else if (!isNaN(input) && (submitCount == 0 || submitCount == 2) ){
                         if(submitCount == 0){
                             numb1 = input;
                             numAccepted(submitCount,numb1,operator1,numb2);
                             submitCount++;
-                            
                         } else if (submitCount == 2){
                             numb2 = input;
                             numAccepted(submitCount,numb1,operator1,numb2);
                         };
                         break;
                     };
-                    if ((input == "*" || input == "/" || input == "-" || input == "+") && submitCount == 1) {
 
+                    if ((input == "*" || input == "/" || input == "-" || input == "+") && submitCount == 1) {
                         submitCount++;
                         operator1 = input;
                         operator(numb1, operator1);
                         break;
-
                     } else if ((input !== "*" || input !== "/" || input !== "-" || input !== "+" )&& submitCount == 1){
                         notAOperator();
                         break;
